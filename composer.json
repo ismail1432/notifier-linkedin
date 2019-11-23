@@ -1,0 +1,31 @@
+{
+  "name": "eniams/linkedin-notifier",
+  "type": "symfony-bridge",
+  "description": "Symfony LinkedIn Notifier Bridge",
+  "keywords": ["linkedin", "notifier"],
+  "homepage": "https://github.com/ismail1432/linkedin-notifier",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Smaïne Milianni",
+      "email": "contact@smaine.me"
+    }
+  ],
+  "require": {
+    "php": "^7.2.5",
+    "symfony/http-client": "^4.3|^5.0",
+    "symfony/notifier": "~5.0.0"
+  },
+  "autoload": {
+    "psr-4": { "Eniams\\Notifier\\LinkedIn\\": "" },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ]
+  },
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "5.0-dev"
+    }
+  }
+}
