@@ -15,20 +15,20 @@ final class LinkedInTransportFactory extends AbstractTransportFactory
     public function create(Dsn $dsn): TransportInterface
     {
         $scheme = $dsn->getScheme();
-        $accessToken = $this->getUser($dsn);
-        $channel = $dsn->getOption('channel');
+        $authToken = $this->getUser($dsn);
+        $accountId = $this->getPassword($dsn);
         $host = 'default' === $dsn->getHost() ? null : $dsn->getHost();
         $port = $dsn->getPort();
 
-        if ('slack' === $scheme) {
-            return (new LinkedInTransport($accessToken, $channel, $this->client, $this->dispatcher))->setHost($host)->setPort($port);
+        if ('linkedin' === $scheme) {
+            return (new LinkedInTransport($authToken, $accountId, $this->client, $this->dispatcher))->setHost($host)->setPort($port);
         }
 
-        throw new UnsupportedSchemeException($dsn, 'slack', $this->getSupportedSchemes());
+        throw new UnsupportedSchemeException($dsn, 'linkedin', $this->getSupportedSchemes());
     }
 
     protected function getSupportedSchemes(): array
     {
-        return ['slack'];
+        return ['linkedin'];
     }
 }
