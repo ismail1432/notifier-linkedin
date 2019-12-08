@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="notifier.transport_factory.linkedin" class="Eniams\Notifier\LinkedIn\LinkedInTransportFactory"
+                 parent="notifier.transport_factory.abstract">
+            <tag name="chatter.transport_factory"/>
+        </service>
+    </services>
+</container>

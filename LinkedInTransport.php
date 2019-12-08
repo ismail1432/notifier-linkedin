@@ -58,9 +58,9 @@ final class LinkedInTransport extends AbstractTransport
         $opts->author(new AuthorOption($this->accountId));
         $options = $opts ? $opts->toArray() : [];
 
-        $response = $this->client->request('POST', LinkedInAPI::ENDPOINT, [
+        $response = $this->client->request('POST', LinkedInApi::ENDPOINT, [
             'auth_bearer' => $this->authToken,
-            'headers' => [LinkedInAPI::PROTOCOL_HEADER => LinkedInAPI::PROTOCOL_VERSION],
+            'headers' => [LinkedInApi::PROTOCOL_HEADER => LinkedInApi::PROTOCOL_VERSION],
             'json' => array_filter($options),
 
         ]);
