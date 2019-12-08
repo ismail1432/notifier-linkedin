@@ -19,7 +19,7 @@ final class LinkedInOptions implements MessageOptionsInterface
 
     public function toArray(): array
     {
-       return $this->options;
+        return $this->options;
     }
 
     public function getRecipientId(): ?string
