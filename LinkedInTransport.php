@@ -2,6 +2,8 @@
 
 namespace Eniams\Notifier\LinkedIn;
 
+use Eniams\Notifier\LinkedIn\Option\AuthorOption;
+use Eniams\Notifier\LinkedIn\Option\LinkedInOptions;
 use Symfony\Component\Notifier\Exception\LogicException;
 use Symfony\Component\Notifier\Exception\TransportException;
 use Symfony\Component\Notifier\Message\ChatMessage;
@@ -15,10 +17,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 final class LinkedInTransport extends AbstractTransport
 {
-    protected const HOST = 'api.linkedin.com';
-    protected const PROTOCOL_VERSION = '2.0.0';
-    protected const ENDPOINT = 'https://api.linkedin.com/v2/ugcPosts';
-
     private $authToken;
     private $accountId;
 
@@ -53,24 +51,18 @@ final class LinkedInTransport extends AbstractTransport
             throw new LogicException(sprintf('The "%s" transport only supports instances of "%s" for options.', __CLASS__, LinkedInOptions::class));
         }
 
-        $lifecycleState = $options['lifecycleState'] ?? 'PUBLISHED';
-        $visibility = $options['visibility'] ?? 'PUBLIC';
+        if (!($opts = $message->getOptions()) && $notification = $message->getNotification()) {
+            $opts = LinkedInOptions::fromNotification($notification);
+        }
 
-        $response = $this->client->request('POST', self::ENDPOINT, [
+        $opts->author(new AuthorOption($this->accountId));
+        $options = $opts ? $opts->toArray() : [];
+
+        $response = $this->client->request('POST', LinkedInAPI::ENDPOINT, [
             'auth_bearer' => $this->authToken,
-            'headers' => ['X-Restli-Protocol-Version' => self::PROTOCOL_VERSION],
-            'json' => [
-                "author" => "urn:li:person:$this->accountId",
-                "lifecycleState" => $lifecycleState,
-                "specificContent" =>
-                    [
-                        "com.linkedin.ugc.ShareContent" => [
-                            "shareCommentary" => ["text" => $message->getSubject()],
-                            "shareMediaCategory" => "NONE",
-                        ]
-                    ],
-                "visibility" => ["com.linkedin.ugc.MemberNetworkVisibility" => $visibility],
-            ]
+            'headers' => [LinkedInAPI::PROTOCOL_HEADER => LinkedInAPI::PROTOCOL_VERSION],
+            'json' => array_filter($options),
+
         ]);
 
         if (201 !== $response->getStatusCode()) {
