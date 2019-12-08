@@ -3,6 +3,10 @@ LinkedIn Notifier
 
 Provides LinkedIn integration for Symfony Notifier.
 
+### Enable the Bundle
+
+Add `Eniams\Notifier\LinkedIn\LinkedInNotifierBundle::class => ['all' => true],` in `bundles.php`
+
 ### Enable the LinkedIn transport
   
 Add the `linkedin` chatter in `config/packages/notifier.yaml`
