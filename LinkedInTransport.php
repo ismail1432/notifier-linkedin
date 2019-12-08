@@ -62,6 +62,7 @@ final class LinkedInTransport extends AbstractTransport
             'auth_bearer' => $this->authToken,
             'headers' => [LinkedInAPI::PROTOCOL_HEADER => LinkedInAPI::PROTOCOL_VERSION],
             'json' => array_filter($options),
+
         ]);
 
         if (201 !== $response->getStatusCode()) {
