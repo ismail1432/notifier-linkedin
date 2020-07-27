@@ -14,7 +14,7 @@
   "require": {
     "php": "^7.2.5",
     "symfony/http-client": "^4.3|^5.0",
-    "symfony/notifier": "~5.0.0"
+    "symfony/notifier": "^5.0|^5.1"
   },
   "autoload": {
     "psr-4": { "Eniams\\Notifier\\LinkedIn\\": "" },

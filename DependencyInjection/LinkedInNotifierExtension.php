@@ -23,8 +23,6 @@ class LinkedInNotifierExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $projectDir = $container->getParameter('kernel.project_dir');
-
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('notifier_linkedin_transports.xml');
     }
