@@ -24,6 +24,7 @@ framework:
 
 ### Define the DSN with your credential.
 
+[You can see how to get credentials from LinkedIn](doc/CREDENTIALS_WORKFLOW.md)
 `LINKEDIN_DSN='linkedin://token:user-id@default'`
 
 ### Use it !
